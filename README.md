@@ -62,7 +62,7 @@ Waka Trenches is optimized for [Vercel](https://vercel.com).
 
 1. Push your code to a GitHub repository.
 2. Import the project into Vercel.
-3. Add your environment variables (NEXT*PUBLIC_APP_PASSWORD and WAKATIME_MEMBER*\*) in the Vercel dashboard.
+3. Add your environment variables (NEXT_PUBLIC_APP_PASSWORD and WAKATIME_MEMBER) in the Vercel dashboard.
 4. Deploy!
 
 _Note: To add or remove a member later, simply update the environment variables in your hosting dashboard and trigger a redeploy._
