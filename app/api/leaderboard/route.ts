@@ -42,7 +42,7 @@ async function fetchMemberStats(name: string, apiKey: string) {
       weeklyHours,
       dailyAvg,
       languages:
-        weeklyData?.data?.languages?.slice(0, 3).map((l: any) => l.name) || [],
+        weeklyData?.data?.languages?.slice(0, 8).map((l: any) => l.name) || [],
     };
   } catch (err) {
     console.error(`Error fetching for ${name}: `, err);

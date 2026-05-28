@@ -102,7 +102,9 @@ export default function Home() {
           onSubmit={handleLogin}
           className="p-8 bg-white shadow-md rounded-lg flex flex-col gap-4"
         >
-          <h1 className="text-2xl font-bold">WakaBoard</h1>
+          <h1 className="text-black text-2xl font-bold">
+            Waka Out Of The Trenches
+          </h1>
           <p className="text-black text-sm">
             Enter password to view leaderboard
           </p>
@@ -115,7 +117,7 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded font-medium hover:bg-blue-700"
+            className="bg-blue-600 cursor-pointer text-white px-4 py-2 rounded font-medium hover:bg-blue-700"
           >
             Enter
           </button>
@@ -151,12 +153,12 @@ export default function Home() {
               >
                 <span className="mr-2">?</span> Hours Coded
               </button>
-              <button
+              {/* <button
                 onClick={() => setActiveTab("ai")}
                 className="flex items-center px-4 py-1.5 text-sm font-medium rounded-sm transition-colors"
               >
                 <span className="mr-2">?</span> AI Lines
-              </button>
+              </button> */}
             </div>
           </div>
 
