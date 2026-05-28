@@ -36,14 +36,10 @@ npm install
 3. **Configure Environment Variables:**
    Create a .env.local (or .env) file in the root directory.
 
-   # The password required to view the leaderboard
+   ## The password required to view the leaderboard
+   - NEXT_PUBLIC_APP_PASSWORD=your_super_secret_password
 
-   `env
-
-   NEXT_PUBLIC_APP_PASSWORD=your_super_secret_password
-   `
-
-   # Team members (Format: Name:API_KEY)
+   ## Team members (Format: Name:API_KEY)
    - WAKATIME_MEMBER_1=Josh:waka_1234567890abcdef
    - WAKATIME_MEMBER_2=James:waka_0987654321fedcba
    - WAKATIME_MEMBER_3=Ezekiel:waka_1122334455aabbcc
