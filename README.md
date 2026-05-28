@@ -1,105 +1,79 @@
-# WakaBoard — Team Coding Leaderboard
+﻿# Waka Trenches 🏆
 
-A lightweight Next.js app that aggregates WakaTime stats across your team into a private leaderboard. API keys live securely in Vercel environment variables — never in the browser.
+A lightweight, secure, and easily deployable Next.js application that aggregates WakaTime statistics across your team into a private leaderboard.
 
----
+Designed for small teams, friends, or coding groups to see who is spending the most time ""in the trenches.""
 
-## Architecture
+## ✨ Features
 
-```
-Browser → /api/leaderboard (Next.js API route)
-              → reads WAKATIME_MEMBER_* from Vercel env
-              → calls WakaTime API in parallel for each member
-              → returns sorted leaderboard data
-              → browser renders table
-```
+- **Zero Database Required**: All data is fetched on the fly and API keys are stored securely in environment variables.
+- **Secure Architecture**: API keys live server-side in Next.js API routes; the browser never sees them.
+- **Password Protected**: Simple front-end password gate to keep your team's leaderboard private.
+- **Beautiful UI**: Dark-themed, WakaTime-inspired UI with real WakaTime profile avatars.
+- **Detailed Stats**: Rank, Programmer, Hours Today, Weekly Hours, Daily Average, and Top Languages.
+- **Interactive**: Toggle between Today and 7 Days views and sort by any column.
 
-Keys are server-side only. The browser never sees them.
+## 🚀 Getting Started
 
----
+### Prerequisites
 
-## Stack
+- Node.js (v18+)
+- A [WakaTime](https://wakatime.com/) account and [API Key](https://wakatime.com/settings/api-key) for each team member.
 
-- **Next.js** — frontend + API routes (server-side key handling)
-- **Tailwind CSS** — styling
-- **Vercel** — free hosting + environment variable storage
+### Local Development
 
----
+1. **Clone the repository:**
+   `bash
+git clone https://github.com/yourusername/waka-trenches.git
+cd waka-trenches
+`
 
-## Environment Variables
+2. **Install dependencies:**
+   `bash
+npm install
+`
 
-Teammates send you their WakaTime API key, you add it to Vercel. Format:
+3. **Configure Environment Variables:**
+   Create a .env.local (or .env) file in the root directory.
 
-```
-WAKATIME_MEMBER_1=Josh:api_key_here
-WAKATIME_MEMBER_2=James:api_key_here
-WAKATIME_MEMBER_3=Ezekiel:api_key_here
-```
+   `env
 
-Adding a new member = add one env var + redeploy. Takes 2 minutes.
+   # The password required to view the leaderboard
 
----
+   NEXT_PUBLIC_APP_PASSWORD=your_super_secret_password
 
-## WakaTime Endpoints
+   # Team members (Format: Name:API_KEY)
 
-```
-# Weekly stats
-GET https://wakatime.com/api/v1/users/current/stats/last_7_days
+   WAKATIME_MEMBER_1=Josh:waka_1234567890abcdef
+   WAKATIME_MEMBER_2=James:waka_0987654321fedcba
+   WAKATIME_MEMBER_3=Ezekiel:waka_1122334455aabbcc
+   `
+   _Note: You can add as many WAKATIME_MEMBER_X variables as you need._
 
-# Today's summary
-GET https://wakatime.com/api/v1/users/current/summaries?start=today&end=today
+4. **Run the development server:**
+   `bash
+npm run dev
+`
+   Open http://localhost:3000 with your browser to see the result.
 
-# Auth header
-Authorization: Basic <base64(api_key)>
-```
+## ☁️ Deployment
 
----
+Waka Trenches is optimized for [Vercel](https://vercel.com).
 
-## Build Plan (1 Day)
+1. Push your code to a GitHub repository.
+2. Import the project into Vercel.
+3. Add your environment variables (NEXT*PUBLIC_APP_PASSWORD and WAKATIME_MEMBER*\*) in the Vercel dashboard.
+4. Deploy!
 
-### Morning — Setup & Data Layer
+_Note: To add or remove a member later, simply update the environment variables in your hosting dashboard and trigger a redeploy._
 
-- [ ] Scaffold project with `create-next-app`
-- [ ] Create `/api/leaderboard` route that reads all `WAKATIME_MEMBER_*` env vars
-- [ ] Parse each var into `{ name, apiKey }` by splitting on `:`
-- [ ] Write `fetchMemberStats(name, apiKey)` that calls both WakaTime endpoints and returns a normalized object:
-  ```js
-  { name, todayHours, weeklyHours, dailyAvg, languages[] }
-  ```
-- [ ] Fire all fetches in parallel with `Promise.all()`
-- [ ] Test the API route works for one key before wiring the full team
+## 🛠️ Tech Stack
 
-### Afternoon — UI
+- **Framework**: [Next.js](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Deployment**: Optimized for Vercel
+- **API**: [WakaTime API](https://wakatime.com/developers)
 
-- [ ] Build the leaderboard table (Rank, Programmer, Hours Today, Weekly Hours, Daily Avg, Languages)
-- [ ] Fetch data from `/api/leaderboard` on page load
-- [ ] Toggle between **Today** and **Last 7 Days** view
-- [ ] Sort by any column on click
-- [ ] Add a refresh button that re-calls the API route
+## 📄 License
 
-### Evening — Polish & Deploy
-
-- [ ] Handle loading and error states (invalid key, rate limit, WakaTime down)
-- [ ] Add a simple password gate on the frontend so the URL stays private
-- [ ] Push to GitHub → connect to Vercel → add env vars in Vercel dashboard → deploy
-- [ ] Share live URL with team
-
----
-
-## Features
-
-- Leaderboard table with Rank, Programmer, Hours Today, Weekly Hours, Daily Avg, Languages
-- Toggle between Today / Last 7 Days view
-- Sort by any column
-- Refresh button for live stats
-- Password gate to keep the URL private
-
----
-
-## Notes
-
-- **No database needed** — keys live in Vercel env vars
-- **No client-side key exposure** — all WakaTime calls happen in the API route
-- **Rate limit** — WakaTime free tier allows 10 requests/min, fine for a small team
-- If you ever hit CORS issues locally, it's because you're calling WakaTime directly from the browser — the API route pattern above avoids this entirely
-- To remove a member, delete their env var and redeploy
+This project is open-sourced under the MIT License.
