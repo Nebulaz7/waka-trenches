@@ -20,8 +20,7 @@ export default function Home() {
   const [sortDesc, setSortDesc] = useState(true);
   const [activeTab, setActiveTab] = useState<"hours" | "ai">("hours");
   const [searchQuery, setSearchQuery] = useState("");
-
-  const EXPECTED_PASSWORD = process.env.NEXT_PUBLIC_APP_PASSWORD || "secret";
+  const [passwordError, setPasswordError] = useState("");
 
   const fetchStats = async () => {
     setLoading(true);
@@ -46,14 +45,11 @@ export default function Home() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      password === EXPECTED_PASSWORD ||
-      !EXPECTED_PASSWORD ||
-      EXPECTED_PASSWORD === "secret"
-    ) {
+    if (password === process.env.NEXT_PUBLIC_APP_PASSWORD) {
       setIsAuthenticated(true);
+      setPasswordError("");
     } else {
-      alert("Incorrect password");
+      setPasswordError("Incorrect password. Please try again.");
     }
   };
 
@@ -97,7 +93,7 @@ export default function Home() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#0c1117]">
         <form
           onSubmit={handleLogin}
           className="p-8 bg-white shadow-md rounded-lg flex flex-col gap-4"
@@ -108,6 +104,11 @@ export default function Home() {
           <p className="text-black text-sm">
             Enter password to view leaderboard
           </p>
+          {passwordError && (
+            <div className="text-red-600 text-sm bg-red-50 p-2 rounded-md border border-red-200">
+              {passwordError}
+            </div>
+          )}
           <input
             type="password"
             className="border p-2 rounded text-black"
@@ -128,23 +129,23 @@ export default function Home() {
 
   const SortIcon = ({ col }: { col: keyof MemberStat }) => {
     if (sortCol !== col) return null;
-    return <span className="ml-1 text-gray-500">{sortDesc ? "?" : "?"}</span>;
+    return <span className="ml-1 text-white">{sortDesc ? "?" : "?"}</span>;
   };
 
   return (
-    <main className="min-h-screen p-4 md:p-8 bg-white text-gray-900 font-sans">
+    <main className="min-h-screen p-4 md:p-8 bg-[#0c1117] text-white font-sans">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header Row */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-500 pb-4">
           <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-            <h3 className="text-2xl font-semibold m-0 text-gray-800">
-              <a href="#" className="hover:text-blue-600 hover:underline">
-                Team Leaderboard
+            <h3 className="text-2xl font-semibold m-0 text-white">
+              <a href="/" className="hover:text-blue-600 hover:underline">
+                Waka Out Of The Trenches
               </a>
             </h3>
 
             <div
-              className="inline-flex bg-gray-100 p-1 rounded-md border border-gray-200 shadow-inner"
+              className="inline-flex bg-[#1a202c] p-1 rounded-md border-none shadow-inner"
               role="tablist"
             >
               <button
@@ -184,7 +185,7 @@ export default function Home() {
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full text-sm border border-gray-300 rounded px-3 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full text-sm border border-gray-700 rounded px-3 py-2 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
@@ -192,7 +193,7 @@ export default function Home() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm whitespace-nowrap">
             <thead>
-              <tr className="border-b-2 border-gray-200 text-gray-600">
+              <tr className="border-b-2 border-gray-800 text-white">
                 <th className="py-3 px-2 font-semibold w-16">
                   <span className="hidden sm:inline">Rank</span>
                   <span className="sm:hidden">#</span>
@@ -228,12 +229,12 @@ export default function Home() {
                 <th className="py-3 px-2 font-semibold">Languages Used</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-600">
               {sortedStats.length === 0 && !loading && (
                 <tr>
                   <td
                     colSpan={6}
-                    className="py-8 px-2 text-center text-gray-500 bg-gray-50 rounded"
+                    className="py-8 px-2 text-center text-white bg-gray-50 rounded"
                   >
                     {stats.length === 0
                       ? "No team members found. Add WAKATIME_MEMBER_X environment variables."
@@ -244,9 +245,9 @@ export default function Home() {
               {sortedStats.map((stat, index) => (
                 <tr
                   key={stat.name}
-                  className="hover:bg-gray-50 transition-colors group"
+                  className="hover:bg-[#1a202c] transition-colors group"
                 >
-                  <td className="py-3 px-2 font-medium text-gray-500">
+                  <td className="py-3 px-2 font-medium text-white">
                     {index + 1}
                   </td>
                   <td className="py-3 px-2">
@@ -262,15 +263,15 @@ export default function Home() {
                       </a>
                     </div>
                   </td>
-                  <td className="py-3 px-2 text-gray-800">
+                  <td className="py-3 px-2 text-white">
                     {activeTab === "hours"
                       ? formatTime(stat.weeklyHours)
                       : "N/A"}
                   </td>
-                  <td className="py-3 px-2 text-gray-500">
+                  <td className="py-3 px-2 text-white">
                     {activeTab === "hours" ? formatTime(stat.dailyAvg) : "N/A"}
                   </td>
-                  <td className="py-3 px-2 text-gray-500">
+                  <td className="py-3 px-2 text-white">
                     {activeTab === "hours"
                       ? formatTime(stat.todayHours)
                       : "N/A"}
