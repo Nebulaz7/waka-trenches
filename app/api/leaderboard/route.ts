@@ -6,7 +6,7 @@ async function fetchMemberStats(name: string, apiKey: string) {
   const authHeader = `Basic ${Buffer.from(apiKey).toString("base64")}`;
 
   try {
-    const [weeklyRes, todayRes] = await Promise.all([
+    const [weeklyRes, todayRes, userRes] = await Promise.all([
       fetch("https://wakatime.com/api/v1/users/current/stats/last_7_days", {
         headers: { Authorization: authHeader },
       }),
@@ -16,19 +16,24 @@ async function fetchMemberStats(name: string, apiKey: string) {
           headers: { Authorization: authHeader },
         },
       ),
+      fetch("https://wakatime.com/api/v1/users/current", {
+        headers: { Authorization: authHeader },
+      }),
     ]);
 
-    if (!weeklyRes.ok || !todayRes.ok) {
+    if (!weeklyRes.ok || !todayRes.ok || !userRes.ok) {
       console.error(`Failed to fetch for ${name}`);
       return null;
     }
 
     const weeklyData = await weeklyRes.json();
     const todayData = await todayRes.json();
+    const userData = await userRes.json();
 
     const weeklyHours = weeklyData?.data?.total_seconds / 3600 || 0;
     const dailyAvg = weeklyData?.data?.daily_average / 3600 || 0;
     const topLanguage = weeklyData?.data?.languages?.[0]?.name || "N/A";
+    const avatarUrl = userData?.data?.photo || "";
 
     // Calculate today's hours from summaries
     let todayHours = 0;
@@ -38,6 +43,7 @@ async function fetchMemberStats(name: string, apiKey: string) {
 
     return {
       name,
+      avatarUrl,
       todayHours,
       weeklyHours,
       dailyAvg,

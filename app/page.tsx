@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 type MemberStat = {
   name: string;
+  avatarUrl?: string;
   todayHours: number;
   weeklyHours: number;
   dailyAvg: number;
@@ -77,8 +78,11 @@ export default function Home() {
     if (Array.isArray(valA)) valA = valA.length;
     if (Array.isArray(valB)) valB = valB.length;
 
-    if (valA < valB) return sortDesc ? 1 : -1;
-    if (valA > valB) return sortDesc ? -1 : 1;
+    const numA = (valA as number) || 0;
+    const numB = (valB as number) || 0;
+
+    if (numA < numB) return sortDesc ? 1 : -1;
+    if (numA > numB) return sortDesc ? -1 : 1;
     return 0;
   });
 
@@ -234,7 +238,7 @@ export default function Home() {
                 <tr>
                   <td
                     colSpan={6}
-                    className="py-8 px-2 text-center text-white bg-gray-50 rounded"
+                    className="py-8 px-2 text-center text-whiterounded"
                   >
                     {stats.length === 0
                       ? "No team members found. Add WAKATIME_MEMBER_X environment variables."
@@ -252,12 +256,20 @@ export default function Home() {
                   </td>
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs uppercase">
-                        {/* {stat.name.substring(0, 2)} */}
+                      <div className="w-6 h-6 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs uppercase overflow-hidden">
+                        {stat.avatarUrl ? (
+                          <img
+                            src={stat.avatarUrl}
+                            alt={stat.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          stat.name.substring(0, 2)
+                        )}
                       </div>
                       <a
                         href="#"
-                        className="text-blue-600 hover:text-blue-800 font-medium group-hover:underline"
+                        className="text-blue-400 hover:text-blue-300 font-medium group-hover:underline"
                       >
                         {stat.name}
                       </a>
@@ -277,7 +289,7 @@ export default function Home() {
                       : "N/A"}
                   </td>
                   <td className="py-3 px-2">
-                    <span className="text-blue-600 text-sm">
+                    <span className="text-blue-300 text-sm">
                       {stat.languages.join(", ")}
                     </span>
                   </td>
