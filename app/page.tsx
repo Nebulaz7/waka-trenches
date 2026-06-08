@@ -212,7 +212,7 @@ export default function Home() {
                   className="py-3 px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
                   onClick={() => handleSort("weeklyHours")}
                 >
-                  <span className="hidden sm:inline">Hours Coded</span>
+                  <span className="hidden sm:inline">Hours Coded <br /> (past 7 days)</span>
                   <span className="sm:hidden">Hours</span>
                   <SortIcon col="weeklyHours" />
                 </th>
