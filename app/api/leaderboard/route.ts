@@ -41,6 +41,9 @@ async function fetchMemberStats(name: string, apiKey: string) {
       todayHours = todayData.data[0].grand_total.total_seconds / 3600;
     }
 
+    // calculate the total hours for the week with the today's hours
+    // const weeklyHours = totalWeeklyHours + todayHours / 3600;
+
     return {
       name,
       avatarUrl,
