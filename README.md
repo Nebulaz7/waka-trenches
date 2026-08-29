@@ -23,15 +23,17 @@ Designed for small teams, friends, or coding groups to see who is spending the m
 ### Local Development
 
 1. **Clone the repository:**
-   `bash
-git clone https://github.com/yourusername/waka-trenches.git
-cd waka-trenches
-`
+
+```bash
+  git clone https://github.com/yourusername/waka-trenches.git
+  cd waka-trenches
+```
 
 2. **Install dependencies:**
-   `bash
-npm install
-`
+
+```bash
+    npm install
+```
 
 3. **Configure Environment Variables:**
    Create a .env.local (or .env) file in the root directory.
@@ -47,10 +49,12 @@ npm install
    Note: You can add as many WAKATIME_MEMBER_X variables as you need.
 
 4. **Run the development server:**
-   `bash
+
+```bash
  npm run dev
-`
-   Open http://localhost:3000 with your browser to see the result.
+```
+
+Open http://localhost:3000 with your browser to see the result.
 
 ## Deployment
 
