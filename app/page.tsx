@@ -280,12 +280,12 @@ export default function Home() {
                   </td>
                   <td className="py-2 px-1 sm:py-3 sm:px-2 align-top">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs uppercase overflow-hidden">
+                      <div className="size-6 min-w-6 min-h-6 shrink-0 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs uppercase overflow-hidden">
                         {stat.avatarUrl ? (
                           <img
                             src={stat.avatarUrl}
                             alt={stat.name}
-                            className="w-full h-full object-cover rounded-full"
+                            className="block w-full h-full object-cover rounded-full aspect-square"
                           />
                         ) : (
                           stat.name.substring(0, 2)
