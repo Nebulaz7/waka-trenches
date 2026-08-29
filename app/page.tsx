@@ -12,6 +12,9 @@ type MemberStat = {
 };
 
 export default function Home() {
+  const AUTH_KEY = "waka_trenches_auth_expires_at";
+  const ONE_HOUR_MS = 60 * 60 * 1000;
+
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [stats, setStats] = useState<MemberStat[]>([]);
@@ -39,6 +42,23 @@ export default function Home() {
   };
 
   useEffect(() => {
+    const raw = localStorage.getItem(AUTH_KEY);
+    if (!raw) return;
+
+    const expiresAt = Number(raw);
+    if (Number.isNaN(expiresAt)) {
+      localStorage.removeItem(AUTH_KEY);
+      return;
+    }
+
+    if (Date.now() < expiresAt) {
+      setIsAuthenticated(true);
+    } else {
+      localStorage.removeItem(AUTH_KEY);
+    }
+  }, []);
+
+  useEffect(() => {
     if (isAuthenticated) {
       fetchStats();
     }
@@ -47,6 +67,8 @@ export default function Home() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === process.env.NEXT_PUBLIC_APP_PASSWORD) {
+      const expiresAt = Date.now() + ONE_HOUR_MS;
+      localStorage.setItem(AUTH_KEY, String(expiresAt));
       setIsAuthenticated(true);
       setPasswordError("");
     } else {
