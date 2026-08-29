@@ -157,7 +157,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen p-4 md:p-8 bg-[#0c1117] text-white font-sans">
+    <main className="min-h-screen p-2 sm:p-4 md:p-8 bg-[#0c1117] text-white font-sans">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header Row */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-500 pb-4">
@@ -214,22 +214,22 @@ export default function Home() {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm whitespace-nowrap">
+        <div className="w-full overflow-x-hidden">
+          <table className="w-full table-fixed text-left text-xs sm:text-sm">
             <thead>
               <tr className="border-b-2 border-gray-800 text-white">
-                <th className="py-3 px-2 font-semibold w-16">
+                <th className="py-2 px-1 sm:py-3 sm:px-2 font-semibold w-10 sm:w-16">
                   <span className="hidden sm:inline">Rank</span>
                   <span className="sm:hidden">#</span>
                 </th>
                 <th
-                  className="py-3 px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
+                  className="py-2 px-1 sm:py-3 sm:px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
                   onClick={() => handleSort("name")}
                 >
                   Programmer <SortIcon col="name" />
                 </th>
                 <th
-                  className="py-3 px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
+                  className="py-2 px-1 sm:py-3 sm:px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
                   onClick={() => handleSort("weeklyHours")}
                 >
                   <span className="hidden sm:inline">
@@ -239,7 +239,7 @@ export default function Home() {
                   <SortIcon col="weeklyHours" />
                 </th>
                 <th
-                  className="py-3 px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
+                  className="py-2 px-1 sm:py-3 sm:px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
                   onClick={() => handleSort("dailyAvg")}
                 >
                   <span className="hidden sm:inline">Daily Average</span>
@@ -247,12 +247,14 @@ export default function Home() {
                   <SortIcon col="dailyAvg" />
                 </th>
                 <th
-                  className="py-3 px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
+                  className="hidden sm:table-cell py-3 px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
                   onClick={() => handleSort("todayHours")}
                 >
                   Today <SortIcon col="todayHours" />
                 </th>
-                <th className="py-3 px-2 font-semibold">Languages Used</th>
+                <th className="py-2 px-1 sm:py-3 sm:px-2 font-semibold">
+                  Languages Used
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-600">
@@ -273,17 +275,17 @@ export default function Home() {
                   key={stat.name}
                   className="hover:bg-[#1a202c] transition-colors group"
                 >
-                  <td className="py-3 px-2 font-medium text-white">
+                  <td className="py-2 px-1 sm:py-3 sm:px-2 font-medium text-white align-top">
                     {index + 1}
                   </td>
-                  <td className="py-3 px-2">
+                  <td className="py-2 px-1 sm:py-3 sm:px-2 align-top">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-xs uppercase overflow-hidden">
                         {stat.avatarUrl ? (
                           <img
                             src={stat.avatarUrl}
                             alt={stat.name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover rounded-full"
                           />
                         ) : (
                           stat.name.substring(0, 2)
@@ -291,27 +293,27 @@ export default function Home() {
                       </div>
                       <a
                         href="#"
-                        className="text-blue-400 hover:text-blue-300 font-medium group-hover:underline"
+                        className="text-blue-400 hover:text-blue-300 font-medium group-hover:underline wrap-break-word"
                       >
                         {stat.name}
                       </a>
                     </div>
                   </td>
-                  <td className="py-3 px-2 text-white">
+                  <td className="py-2 px-1 sm:py-3 sm:px-2 text-white align-top">
                     {activeTab === "hours"
                       ? formatTime(stat.weeklyHours)
                       : "N/A"}
                   </td>
-                  <td className="py-3 px-2 text-white">
+                  <td className="py-2 px-1 sm:py-3 sm:px-2 text-white align-top">
                     {activeTab === "hours" ? formatTime(stat.dailyAvg) : "N/A"}
                   </td>
-                  <td className="py-3 px-2 text-white">
+                  <td className="hidden sm:table-cell py-3 px-2 text-white align-top">
                     {activeTab === "hours"
                       ? formatTime(stat.todayHours)
                       : "N/A"}
                   </td>
-                  <td className="py-3 px-2">
-                    <span className="text-blue-300 text-sm">
+                  <td className="py-2 px-1 sm:py-3 sm:px-2 align-top">
+                    <span className="text-blue-300 text-[11px] sm:text-sm whitespace-normal wrap-break-word leading-snug">
                       {stat.languages.join(", ")}
                     </span>
                   </td>
