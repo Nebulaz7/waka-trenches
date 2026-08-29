@@ -124,9 +124,7 @@ export default function Home() {
           onSubmit={handleLogin}
           className="p-8 bg-white shadow-md rounded-lg flex flex-col gap-4"
         >
-          <h1 className="text-black text-2xl font-bold">
-            Waka Out Of The Trenches
-          </h1>
+          <h1 className="text-black text-2xl font-bold">Waka Trenches</h1>
           <p className="text-black text-sm">
             Enter password to view leaderboard
           </p>
@@ -166,7 +164,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
             <h3 className="text-2xl font-semibold m-0 text-white">
               <a href="/" className="hover:text-blue-600 hover:underline">
-                Waka Out Of The Trenches
+                Waka Trenches
               </a>
             </h3>
 
@@ -234,7 +232,9 @@ export default function Home() {
                   className="py-3 px-2 font-semibold cursor-pointer hover:text-blue-600 transition-colors"
                   onClick={() => handleSort("weeklyHours")}
                 >
-                  <span className="hidden sm:inline">Hours Coded <br /> (past 7 days)</span>
+                  <span className="hidden sm:inline">
+                    Hours Coded <br /> (past 7 days)
+                  </span>
                   <span className="sm:hidden">Hours</span>
                   <SortIcon col="weeklyHours" />
                 </th>
