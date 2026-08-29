@@ -218,7 +218,7 @@ export default function Home() {
           <table className="w-full table-fixed text-left text-xs sm:text-sm">
             <thead>
               <tr className="border-b-2 border-gray-800 text-white">
-                <th className="py-2 px-1 sm:py-3 sm:px-2 font-semibold w-10 sm:w-16">
+                <th className="py-2 px-0.5 sm:py-3 sm:px-2 font-semibold w-4 sm:w-16">
                   <span className="hidden sm:inline">Rank</span>
                   <span className="sm:hidden">#</span>
                 </th>
