@@ -176,7 +176,7 @@ export default function Home() {
                 onClick={() => setActiveTab("hours")}
                 className="flex items-center px-4 py-1.5 text-sm font-medium rounded-sm transition-colors"
               >
-                <span className="mr-2">?</span> Hours Coded
+                <span className="mr-2"></span> Weekly coding stats
               </button>
               {/* <button
                 onClick={() => setActiveTab("ai")}
