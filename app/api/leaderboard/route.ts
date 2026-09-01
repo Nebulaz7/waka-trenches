@@ -30,7 +30,7 @@ async function fetchMemberStats(name: string, apiKey: string) {
     const todayData = await todayRes.json();
     const userData = await userRes.json();
 
-    const weeklyHours = weeklyData?.data?.total_seconds / 3600 || 0;
+    const totalWeeklyHours = weeklyData?.data?.total_seconds / 3600 || 0;
     const dailyAvg = weeklyData?.data?.daily_average / 3600 || 0;
     const topLanguage = weeklyData?.data?.languages?.[0]?.name || "N/A";
     const avatarUrl = userData?.data?.photo || "";
@@ -42,7 +42,7 @@ async function fetchMemberStats(name: string, apiKey: string) {
     }
 
     // calculate the total hours for the week with the today's hours
-    // const weeklyHours = totalWeeklyHours + todayHours / 3600;
+    const weeklyHours = totalWeeklyHours + todayHours / 3600;
 
     return {
       name,
